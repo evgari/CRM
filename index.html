@@ -433,7 +433,10 @@
           <use href="#cross"></use>
         </svg>
       </button>
-      <h2 class="modal__title">Добавить товар</h2>
+      <div class="modal__header">
+        <h2 class="modal__title">Добавить товар</h2>
+        <span class="modal__id">id: 201910241</span>
+      </div>
       <form class="form" action="https://jsonplaceholder.typicode.com/posts" method="POST">
         <fieldset class="form__wrapper">
           <fieldset class="form__inner">
@@ -474,7 +477,7 @@
             </label>
             <fieldset class="flex form__inner">
               <input id="check" class="checkbox" type="checkbox" name="discont">
-              <input class="form__input form__input_disabled form__input_small" type="text" disabled>
+              <input class="form__input form__input_disabled form__input_small js-discont-input" type="text" disabled>
             </fieldset>
           </fieldset>
           <fieldset class="form__inner">
