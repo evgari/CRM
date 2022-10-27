@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnlineShop</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg display="none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="filter" viewbox="0 0 20 20">
+      <path d="M12 12L20 4V0H0V4L8 12V20L12 16V12Z"/>
+    </symbol>
+
+    <symbol id="search" viewbox="0 0 20 20">
+      <path d="M13.4097 14.8822C11.7399 16.1799 9.63851 16.7922 7.53338 16.5942C5.42824 16.3963 3.47766 15.403 2.07881 13.8166C0.679961 12.2303 -0.0619809 10.1701 0.00405863 8.05565C0.0700982 5.94118 0.939153 3.9314 2.43427 2.43552C3.92939 0.939633 5.93814 0.0701341 8.05152 0.00406071C10.1649 -0.0620127 12.224 0.680308 13.8096 2.07987C15.3951 3.47944 16.3879 5.43102 16.5857 7.53723C16.7836 9.64345 16.1717 11.7459 14.8745 13.4166L19.6936 18.2201C20.1016 18.6267 20.1022 19.2872 19.695 19.6946C19.2878 20.1021 18.6273 20.1017 18.2204 19.6939L13.4201 14.8822H13.4097ZM8.31916 14.5495C9.13773 14.5495 9.94829 14.3882 10.7045 14.0748C11.4608 13.7614 12.148 13.302 12.7268 12.7229C13.3056 12.1438 13.7647 11.4563 14.078 10.6996C14.3913 9.94298 14.5525 9.13201 14.5525 8.31302C14.5525 7.49403 14.3913 6.68306 14.078 5.92641C13.7647 5.16976 13.3056 4.48225 12.7268 3.90314C12.148 3.32402 11.4608 2.86465 10.7045 2.55123C9.94829 2.23782 9.13773 2.07651 8.31916 2.07651C6.66598 2.07651 5.08051 2.73356 3.91153 3.90314C2.74256 5.07271 2.08583 6.659 2.08583 8.31302C2.08583 9.96705 2.74256 11.5533 3.91153 12.7229C5.08051 13.8925 6.66598 14.5495 8.31916 14.5495Z"/>
+    </symbol>
+
+    <symbol id="image" viewbox="0 0 20 20">
+      <path d="M17.7778 2.22223H2.22223C1.92754 2.22223 1.64493 2.33929 1.43655 2.54767C1.22818 2.75604 1.11111 3.03866 1.11111 3.33334V16.6667C1.11111 16.9614 1.22818 17.244 1.43655 17.4523C1.64493 17.6607 1.92754 17.7778 2.22223 17.7778H17.7778C18.0725 17.7778 18.3551 17.6607 18.5635 17.4523C18.7718 17.244 18.8889 16.9614 18.8889 16.6667V3.33334C18.8889 3.03866 18.7718 2.75604 18.5635 2.54767C18.3551 2.33929 18.0725 2.22223 17.7778 2.22223ZM2.22223 16.6667V3.33334H17.7778V16.6667H2.22223Z"/>
+      <path d="M4.95555 7.77778C5.28518 7.77778 5.60741 7.68003 5.8815 7.49689C6.15558 7.31376 6.3692 7.05346 6.49535 6.74892C6.62149 6.44437 6.6545 6.10926 6.59019 5.78596C6.52588 5.46266 6.36715 5.16569 6.13406 4.9326C5.90097 4.69951 5.604 4.54078 5.2807 4.47647C4.9574 4.41216 4.62228 4.44516 4.31774 4.57131C4.0132 4.69746 3.7529 4.91108 3.56976 5.18516C3.38663 5.45924 3.28888 5.78147 3.28888 6.11111C3.28888 6.55314 3.46447 6.97706 3.77703 7.28962C4.0896 7.60218 4.51352 7.77778 4.95555 7.77778ZM4.95555 5.22222C5.13158 5.22112 5.30399 5.27232 5.45089 5.36932C5.5978 5.46632 5.71259 5.60476 5.78072 5.76708C5.84885 5.9294 5.86725 6.1083 5.83358 6.28109C5.79992 6.45389 5.7157 6.61279 5.59161 6.73766C5.46752 6.86253 5.30915 6.94774 5.13657 6.98249C4.96399 7.01724 4.78498 6.99997 4.62223 6.93285C4.45949 6.86574 4.32033 6.75182 4.22241 6.60552C4.12449 6.45923 4.07222 6.28715 4.07221 6.11111C4.07367 5.87729 4.1672 5.65345 4.33255 5.48811C4.49789 5.32277 4.72172 5.22923 4.95555 5.22778V5.22222Z"/>
+      <path d="M12.6555 8.53889L9.65555 11.5389L7.43332 9.31666C7.32923 9.21319 7.18843 9.15511 7.04166 9.15511C6.89489 9.15511 6.75408 9.21319 6.64999 9.31666L3.28888 12.7222V14.2944L7.0611 10.5222L8.88888 12.3222L6.80555 14.4056H8.33332L13.0278 9.71111L16.6667 13.3333V11.7667L13.4389 8.53889C13.3348 8.43541 13.194 8.37733 13.0472 8.37733C12.9004 8.37733 12.7596 8.43541 12.6555 8.53889Z"/>
+    </symbol>
+
+    <symbol id="no-image" viewbox="0 0 20 20">
+      <path d="M18.75 2.13375L17.8663 1.25L1.25 17.8663L2.13375 18.75L3.38375 17.5H16.25C16.5814 17.4995 16.899 17.3676 17.1333 17.1333C17.3676 16.899 17.4995 16.5814 17.5 16.25V3.38375L18.75 2.13375ZM16.25 16.25H4.63375L9.50437 11.3794L10.9913 12.8663C11.2257 13.1006 11.5435 13.2322 11.875 13.2322C12.2065 13.2322 12.5243 13.1006 12.7587 12.8663L13.75 11.875L16.25 14.3731V16.25ZM16.25 12.605L14.6337 10.9888C14.3993 10.7544 14.0815 10.6228 13.75 10.6228C13.4185 10.6228 13.1007 10.7544 12.8663 10.9888L11.875 11.98L10.3894 10.4944L16.25 4.63375V12.605Z"/>
+      <path d="M3.75 13.75V11.875L6.875 8.75187L7.73313 9.61062L8.61812 8.72563L7.75875 7.86625C7.52434 7.63191 7.20646 7.50027 6.875 7.50027C6.54354 7.50027 6.22566 7.63191 5.99125 7.86625L3.75 10.1075V3.75H13.75V2.5H3.75C3.41858 2.50033 3.10083 2.63213 2.86648 2.86648C2.63213 3.10083 2.50033 3.41858 2.5 3.75V13.75H3.75Z"/>
+    </symbol>
+
+    <symbol id="description" viewbox="0 0 18 19" fill="none">
+      <path d="M13.5629 3.86078L15.6394 5.93629L13.5629 3.86078ZM14.8982 2.03233L9.28343 7.64709C8.99332 7.9368 8.79546 8.3059 8.7148 8.70789L8.19617 11.304L10.7923 10.7844C11.1942 10.704 11.5629 10.5069 11.8531 10.2167L17.4678 4.60196C17.6366 4.43324 17.7704 4.23293 17.8617 4.01248C17.953 3.79203 18 3.55576 18 3.31714C18 3.07853 17.953 2.84225 17.8617 2.6218C17.7704 2.40136 17.6366 2.20105 17.4678 2.03233C17.2991 1.8636 17.0988 1.72976 16.8784 1.63845C16.6579 1.54714 16.4216 1.50014 16.183 1.50014C15.9444 1.50014 15.7081 1.54714 15.4877 1.63845C15.2672 1.72976 15.0669 1.8636 14.8982 2.03233V2.03233Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16.0394 13.2648V16.206C16.0394 16.726 15.8328 17.2248 15.4651 17.5925C15.0973 17.9602 14.5986 18.1668 14.0786 18.1668H3.29415C2.77411 18.1668 2.27537 17.9602 1.90765 17.5925C1.53993 17.2248 1.33334 16.726 1.33334 16.206V5.42157C1.33334 4.90154 1.53993 4.4028 1.90765 4.03508C2.27537 3.66735 2.77411 3.46077 3.29415 3.46077H6.23535" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="delete" viewbox="0 0 16 16">
+      <path d="M5.03125 1.59375H4.875C4.96094 1.59375 5.03125 1.52344 5.03125 1.4375V1.59375H10.9688V1.4375C10.9688 1.52344 11.0391 1.59375 11.125 1.59375H10.9688V3H12.375V1.4375C12.375 0.748047 11.8145 0.1875 11.125 0.1875H4.875C4.18555 0.1875 3.625 0.748047 3.625 1.4375V3H5.03125V1.59375ZM14.875 3H1.125C0.779297 3 0.5 3.2793 0.5 3.625V4.25C0.5 4.33594 0.570312 4.40625 0.65625 4.40625H1.83594L2.31836 14.6211C2.34961 15.2871 2.90039 15.8125 3.56641 15.8125H12.4336C13.1016 15.8125 13.6504 15.2891 13.6816 14.6211L14.1641 4.40625H15.3438C15.4297 4.40625 15.5 4.33594 15.5 4.25V3.625C15.5 3.2793 15.2207 3 14.875 3ZM12.2832 14.4062H3.7168L3.24414 4.40625H12.7559L12.2832 14.4062Z"/>
+    </symbol>
+
+    <symbol id="triangle" viewbox="0 0 8 5">
+      <path d="M4 5L0 0H8L4 5Z"/>
+    </symbol>
+
+    <symbol id="prev" viewbox="0 0 6 10">
+      <path d="M5.79971 1.10636C6.42812 0.51287 5.43313 -0.426818 4.80472 0.216126L0.196378 4.51891C-0.0654595 4.7662 -0.0654595 5.21131 0.196378 5.4586L4.80472 9.81084C5.43313 10.4043 6.42812 9.46464 5.79971 8.87115L1.71504 5.01348L5.79971 1.10636Z"/>
+    </symbol>
+
+    <symbol id="next" viewbox="0 0 6 10">
+      <path d="M0.200293 1.10636C-0.428118 0.51287 0.566865 -0.426818 1.19528 0.216126L5.80362 4.51891C6.06546 4.7662 6.06546 5.21131 5.80362 5.4586L1.19528 9.81084C0.566865 10.4043 -0.428118 9.46464 0.200293 8.87115L4.28496 5.01348L0.200293 1.10636Z"/>
+    </symbol>
+
+    <symbol id="cross" viewbox="0 0 24 24" fill="none">
+      <path d="M2 2L22 22" stroke-width="3" stroke-linecap="round"/>
+      <path d="M2 22L22 2" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <header class="header">
+    <h1 class="visually-hidden">CRM компании OnlineShop</h1>
+    <div class="container header__container">
+      <a class="header__logo">CMS</a>
+      <div class="header__summary summary">
+        Итоговая стоимость:
+        <span class="summary__count"> $900.00</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container container_overflow_x">
+      <div class="products">
+        <div class="products__filters">
+          <button class="products__filters-btn btn-reset" type="button">
+            <svg class="products__filters-icon">
+              <use href="#filter"></use>
+            </svg>
+            Фильтр
+          </button>
+          <form class="products__search search">
+            <button class="search__btn btn-reset" type="button">
+              <svg class="search__btn-icon">
+                <use href="#search"></use>
+              </svg>
+            </button>
+            <input type="search" class="search__input" placeholder="Поиск по наименованию и категории">
+          </form>
+          <button class="products__cart btn-fill btn-reset" type="button">Добавить товар</button>
+        </div>
+        <table class="products__table table">
+          <thead class="table__header">
+            <tr>
+              <td class="column-1">ID</td>
+              <td class="column-2">Наименование</td>
+              <td class="column-3">Категория</td>
+              <td class="column-4">ед/изм</td>
+              <td class="column-5">количество</td>
+              <td class="column-6">цена</td>
+              <td class="column-7">ИТОГ</td>
+              <td class="column-8"></td>
+            </tr>
+          </thead>
+
+          <tbody class="table__body">
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#no-image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>937295527</td>
+              <td>Настольная игра “На 4-х ногах”</td>
+              <td>Настольные игры</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">12</td>
+              <td>$14</td>
+              <td>$168</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>246016548</td>
+              <td>Навигационная система Soundmax</td>
+              <td>Техника для дома</td>
+              <td class="text-center">шт</td>
+              <td class="text-center">5</td>
+              <td>$100</td>
+              <td>$500</td>
+              <td>
+                <div class="flex flex_space_between">
+                  <button class="add-img btn-reset" type="button">
+                    <svg class="add-img__icon">
+                      <use href="#image"></use>
+                    </svg>
+                  </button>
+                  <button class="add-descr btn-reset" type="button">
+                    <svg class="add-descr__icon">
+                      <use href="#description"></use>
+                    </svg>
+                  </button>
+                  <button class="delete btn-reset" type="button">
+                    <svg class="delete__icon">
+                      <use href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot class="table__footer">
+            <tr>
+              <td colspan="3"></td>
+              <td colspan="5">
+                <div class="flex flex_space_between">
+                  <button class="pages-btn btn-reset" type="button">
+                    Показывать на странице:
+                    <span class="pages-btn__count">10</span>
+                    <svg class="pages-btn__icon">
+                      <use href="#triangle"></use>
+                    </svg>
+                  </button>
+                  <span class="pages-count">1-10 of 276</span>
+                  <div class="pages-nav">
+                    <button class="arrow btn-prev btn-reset">
+                      <svg class="arrow__icon">
+                        <use href="#prev"></use>
+                      </svg>
+                    </button>
+                    <button class="arrow btn-next btn-reset">
+                      <svg class="arrow__icon">
+                        <use href="#next"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal">
+    <div class="modal__wrapper">
+      <button class="btn-close btn-reset flex">
+        <svg class="btn-close__icon">
+          <use href="#cross"></use>
+        </svg>
+      </button>
+      <h2 class="modal__title">Добавить товар</h2>
+      <form class="form" action="https://jsonplaceholder.typicode.com/posts" method="POST">
+        <fieldset class="form__wrapper">
+          <fieldset class="form__inner">
+            <label class="form__label">
+              <div class="form__label-text">Наименование</div>  
+              <input class="form__input" type="text" name="product">
+            </label>
+          </fieldset>
+          <fieldset class="form__inner form__inner_big">
+            <label class="form__label">
+              <div class="form__label-text">Описание</div>              
+              <textarea class="form__input textarea" name="description"></textarea>
+            </label>
+          </fieldset>
+          <fieldset class="form__inner">
+            <label class="form__label">
+              <div class="form__label-text">Категория</div>              
+              <input class="form__input" type="text" name="category">
+            </label>
+          </fieldset>
+          <fieldset class="form__inner">
+            <label class="form__label">
+              <div class="form__label-text">Единицы измерения</div>
+              <input class="form__input" type="text" name="units">
+            </label>
+          </fieldset>
+          <fieldset class="form__inner">
+            <label class="form__label">
+              <div class="form__label-text">Количество</div>              
+              <input class="form__input" type="number" name="count">
+            </label>
+          </fieldset>
+          <fieldset class="form__inner">
+            <label for="check" class="form__label">
+              <div class="form__label-text">
+                Дисконт
+              </div>  
+            </label>
+            <fieldset class="flex form__inner">
+              <input id="check" class="checkbox" type="checkbox" name="discont">
+              <input class="form__input form__input_disabled form__input_small" type="text" disabled>
+            </fieldset>
+          </fieldset>
+          <fieldset class="form__inner">
+            <label class="form__label">
+              <div class="form__label-text">Цена</div>
+              <input class="form__input" type="number" name="price">
+            </label>
+          </fieldset>
+          <div class="message form__message"></div>
+          <button class="btn-fill btn-reset form__btn-image">Добавить изображение</button>
+          <div class="form__image"></div>
+        </fieldset>
+        <div class="form__footer flex flex_space_between">
+          <div class="form__summary summary">
+            Итоговая стоимость:
+            <span class="summary__count"> $900.00</span>
+          </div>
+          <button class="btn-fill btn-reset form__btn-add">Добавить товар</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
