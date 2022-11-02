@@ -14,6 +14,10 @@
   background-color: rgba(0,0,0,0.7);
 }
 
+.modal.open {
+  display: flex;
+}
+
 .modal__header {
   position: relative;
   display: flex;
