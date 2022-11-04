@@ -9,23 +9,18 @@
 // const modalTotalPrice = document.querySelector('.summary__count');
 
 const overlay = document.querySelector('.modal');
-const modal = document.querySelector('.modal__wrapper');
 const productsCart = document.querySelector('.products__cart');
-const closeModal = document.querySelector('.btn-close');
 
 productsCart.addEventListener('click', () => {
   overlay.classList.add('open');
 });
 
-closeModal.addEventListener('click', () => {
-  overlay.classList.remove('open');
-});
+overlay.addEventListener('click', e => {
+  const target = e.target;
 
-modal.addEventListener('click', event => {
-  event.stopPropagation();
-});
-
-overlay.addEventListener('click', () => {
-  overlay.classList.remove('open');
+  if (target === overlay ||
+    target.closest('.btn-close')) {
+    overlay.classList.remove('open');
+  }
 });
 

@@ -1,75 +1,85 @@
 'use strict';
 const goods = [
   {
+    'id': 246016548,
+    'title': 'Навигационная система Soundmax',
+    'category': 'Техника для дома',
+    'units': 'шт',
+    'count': 5,
+    'price': 100,
+    'total': 500,
+  },
+  {
+    'id': 937295527,
+    'title': 'Настольная игра “На 4-х ногах”',
+    'category': 'Настольные игры',
+    'units': 'шт',
+    'count': 12,
+    'price': 14,
+    'total': 168,
+  },
+  {
     'id': 253842678,
     'title': 'Смартфон Xiaomi 11T 8/128GB',
-    'price': 27000,
-    'description': 'Смартфон Xiaomi 11T – это представитель флагманской линейки, выпущенной во второй половине 2021 года. И он полностью соответствует такому позиционированию, предоставляя своим обладателям возможность пользоваться отличными камерами, ни в чем себя не ограничивать при запуске игр и других требовательных приложений.',
-    'category': 'mobile-phone',
-    'discont': false,
-    'count': 3,
+    'category': 'Смартфоны',
     'units': 'шт',
-    'images': {
-      'small': 'img/smrtxiaomi11t-m.jpg',
-      'big': 'img/smrtxiaomi11t-b.jpg',
-    },
+    'count': 4,
+    'price': 400,
+    'total': 1600,
   },
   {
     'id': 296378448,
     'title': 'Радиоуправляемый автомобиль Cheetan',
-    'price': 4000,
-    'description': 'Внедорожник на дистанционном управлении. Скорость 25км/ч. Возраст 7 - 14 лет',
-    'category': 'toys',
-    'discont': 5,
+    'category': 'Игрушки',
+    'units': 'шт',
     'count': 1,
-    'units': 'шт',
-    'images': {
-      'small': 'img/cheetancar-m.jpg',
-      'big': 'img/cheetancar-b.jpg',
-    },
+    'price': 60,
+    'total': 60,
   },
   {
-    'id': 215796548,
-    'title': 'ТВ приставка MECOOL KI',
-    'price': 12400,
-    'description': 'Всего лишь один шаг сделает ваш телевизор умным, Быстрый и умный MECOOL KI PRO, прекрасно спроектированный, сочетает в себе прочный процессор Cortex-A53 с чипом Amlogic S905D',
-    'category': 'tv-box',
-    'discont': 15,
-    'count': 4,
-    'units': 'шт',
-    'images': {
-      'small': 'img/tvboxmecool-m.jpg',
-      'big': 'img/tvboxmecool-b.jpg',
-    },
-  },
-  {
-    'id': 246258248,
+    'id': 216374586,
     'title': 'Витая пара PROConnect 01-0043-3-25',
-    'price': 22,
-    'description': 'Витая пара Proconnect 01-0043-3-25 является сетевым кабелем с 4 парами проводов типа UTP, в качестве проводника в которых используется алюминий, плакированный медью CCA. Такая неэкранированная витая пара с одножильными проводами диаметром 0.50 мм широко применяется в процессе сетевых монтажных работ. С ее помощью вы сможете обеспечить развертывание локальной сети в домашних условиях или на предприятии, объединить все необходимое вам оборудование в единую сеть.',
-    'category': 'cables',
-    'discont': false,
-    'count': 420,
-    'units': 'v',
-    'images': {
-      'small': 'img/lan_proconnect43-3-25.jpg',
-      'big': 'img/lan_proconnect43-3-25-b.jpg',
-    },
+    'category': 'Кабели',
+    'units': 'шт',
+    'count': 9,
+    'price': 10,
+    'total': 90,
   },
 ];
 
 const table = document.querySelector('.table__body');
+const tableBody = document.querySelector('.table__body');
 
 const createRow = (obj) => {
   const row = document.createElement('tr');
-  const cellCount = Object.keys(obj).length;
-  const cellContents = Object.values(obj);
-
-  for (let i = 0; i < cellCount - 1; i++) {
-    const cell = document.createElement('td');
-    cell.textContent = cellContents[i];
-    row.append(cell);
-  }
+  row.innerHTML = `
+  <td>${obj.id}</td>
+  <td>${obj.title}</td>
+  <td>${obj.category}</td>
+  <td>${obj.units}</td>
+  <td>${obj.count}</td>
+  <td>${obj.price}</td>
+  <td>${obj.total}</td>
+  <td>
+    <div class="flex flex_space_between">
+      <button class="add-img btn-reset">
+        <svg class="add-img__icon">
+          <use href="#image"></use>
+        </svg>
+      </button>
+      <button class="add-descr btn-reset">
+        <svg class="add-descr__icon">
+          <use href="#description"></use>
+        </svg>
+      </button>
+      <button class="delete btn-reset">
+        <svg class="delete__icon">
+          <use href="#delete"></use>
+        </svg>
+      </button>
+    </div>
+  </td>
+  `;
 
   return row;
 };
@@ -77,8 +87,27 @@ const createRow = (obj) => {
 const renderGoods = (arr) => {
   goods.map(obj => {
     const row = createRow(obj);
+    row.dataset.id = obj.id;
     table.append(row);
   });
 };
+
+tableBody.addEventListener('click', e => {
+  const target = e.target;
+
+  if (target.closest('.delete')) {
+    const row = target.closest('tr');
+    const targetId = row.dataset.id;
+
+    for (const i in goods) {
+      if (goods[i].id === +targetId) {
+        goods.splice(i, 1);
+      }
+    }
+
+    row.remove();
+    console.log(goods);
+  }
+});
 
 renderGoods(goods);
