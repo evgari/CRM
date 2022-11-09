@@ -51,7 +51,7 @@ const addGoodData = good => {
   goods.push(good);
 };
 
-const showTotal = () => {
+const showTotal = arr => {
   const total = goods.reduce((a, b) => a + b.total, 0);
 
   document.querySelector('.header__summary span').textContent = `$${total}`;
@@ -69,7 +69,7 @@ const getGoodTotal = obj => {
   return total;
 };
 
-const createRow = (obj) => {
+const createRow = obj => {
   const row = document.createElement('tr');
 
   row.dataset.id = obj.id;
@@ -105,7 +105,7 @@ const createRow = (obj) => {
   return row;
 };
 
-const renderGoods = (arr) => {
+const renderGoods = arr => {
   arr.map(obj => {
     const row = createRow(obj);
     table.append(row);
@@ -129,7 +129,7 @@ const deleteControll = () => {
       }
 
       row.remove();
-      showTotal();
+      showTotal(goods);
     }
   });
 };
@@ -228,7 +228,7 @@ const formControll = (form, table, closeModal) => {
     form.reset();
     closeModal();
 
-    showTotal();
+    showTotal(goods);
   });
 };
 
