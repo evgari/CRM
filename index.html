@@ -7,7 +7,6 @@
   <title>OnlineShop</title>
   <link rel="stylesheet" href="css/style.css">
   
-  <script src="js/modal.js" defer></script>
   <script src="js/script.js" defer></script>
 </head>
 <body>
@@ -149,14 +148,17 @@
       </button>
       <div class="modal__header">
         <h2 class="modal__title">Добавить товар</h2>
-        <span class="modal__id">id: 201910241</span>
+        <div class="vendor-code">
+          id:
+          <span class="vendor-code__id">201910241</span>
+        </div>
       </div>
       <form class="form" action="https://jsonplaceholder.typicode.com/posts" method="POST">
         <fieldset class="form__wrapper">
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Наименование</div>  
-              <input class="form__input" type="text" name="product">
+              <input class="form__input" type="text" name="title">
             </label>
           </fieldset>
           <fieldset class="form__inner form__inner_big">
@@ -191,7 +193,7 @@
             </label>
             <fieldset class="flex form__inner">
               <input id="check" class="checkbox" type="checkbox" name="discont">
-              <input class="form__input form__input_disabled form__input_small js-discont-input" type="text" disabled>
+              <input class="form__input form__input_disabled form__input_small js-promo" type="text" name="promo" disabled>
             </fieldset>
           </fieldset>
           <fieldset class="form__inner">
@@ -201,15 +203,15 @@
             </label>
           </fieldset>
           <div class="message form__message"></div>
-          <button class="btn-fill btn-reset form__btn-image">Добавить изображение</button>
+          <button class="btn-fill btn-reset form__btn-image" type="button">Добавить изображение</button>
           <div class="form__image"></div>
         </fieldset>
         <div class="form__footer flex flex_space_between">
           <div class="form__summary summary">
             Итоговая стоимость:
-            <span class="summary__count"> $900.00</span>
+            <span class="summary__count"> $0</span>
           </div>
-          <button class="btn-fill btn-reset form__btn-add">Добавить товар</button>
+          <button class="btn-fill btn-reset form__btn-add" type="submit">Добавить товар</button>
         </div>
       </form>
     </div>
