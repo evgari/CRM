@@ -120,10 +120,10 @@ const deleteControll = () => {
 
     if (target.closest('.delete')) {
       const row = target.closest('tr');
-      const targetId = +row.dataset.id;
+      const targetId = row.dataset.id;
 
       for (const i in goods) {
-        if (goods[i].id === targetId) {
+        if (goods[i].id == targetId) {
           goods.splice(i, 1);
         }
       }
