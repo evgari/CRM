@@ -1,8 +1,8 @@
 import elems from './getElems.js';
+import {goods} from './getElems.js';
 import modal from './modal.js';
 
 const table = elems.table;
-const goods = elems.goods;
 const getGoodTotal = modal.getGoodTotal;
 
 const showTotal = arr => {

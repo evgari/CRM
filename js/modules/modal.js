@@ -1,7 +1,6 @@
-import elems from './getElems.js';
+import {goods} from './getElems.js';
 import page from './page.js';
 
-const goods = elems.goods;
 const createRow = page.createRow;
 const generateId = page.generateId;
 const showTotal = page.showTotal;

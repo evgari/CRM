@@ -1,4 +1,10 @@
-const goods = [
+const table = document.querySelector('.table__body');
+const form = document.querySelector('.form');
+const overlay = document.querySelector('.modal');
+const productsCart = document.querySelector('.products__cart');
+const idField = document.querySelector('.vendor-code__id');
+
+export const goods = [
   {
     id: 246016548,
     title: 'Навигационная система Soundmax',
@@ -46,14 +52,7 @@ const goods = [
   },
 ];
 
-const table = document.querySelector('.table__body');
-const form = document.querySelector('.form');
-const overlay = document.querySelector('.modal');
-const productsCart = document.querySelector('.products__cart');
-const idField = document.querySelector('.vendor-code__id');
-
 export default {
-  goods,
   table,
   form,
   overlay,

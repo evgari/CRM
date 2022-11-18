@@ -1,8 +1,8 @@
 import elems from './modules/getElems.js';
+import {goods} from './modules/getElems.js';
 import page from './modules/page.js';
 import modal from './modules/modal.js';
 
-const goods = elems.goods;
 const form = elems.form;
 const table = elems.table;
 const overlay = elems.overlay;
