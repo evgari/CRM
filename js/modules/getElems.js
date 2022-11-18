@@ -52,7 +52,7 @@ export const goods = [
   },
 ];
 
-export default {
+export const elems = {
   table,
   form,
   overlay,

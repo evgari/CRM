@@ -1,5 +1,4 @@
-import elems from './getElems.js';
-import {goods} from './getElems.js';
+import {goods, elems} from './getElems.js';
 import modal from './modal.js';
 
 const table = elems.table;
