@@ -1,15 +1,11 @@
 import {goods} from './getElems.js';
 import page from './page.js';
 
-const createRow = page.createRow;
-const generateId = page.generateId;
-const showTotal = page.showTotal;
-
 const modalControll = (overlay, productsCart, idField) => {
   const openModal = () => {
     overlay.classList.add('open');
 
-    idField.textContent = generateId();
+    idField.textContent = page.generateId();
   };
 
   const closeModal = () => {
@@ -62,7 +58,7 @@ const showModalTotal = (form, field) => {
 };
 
 const addGoodPage = (good, table) => {
-  table.append(createRow(good));
+  table.append(page.createRow(good));
 };
 
 const addGoodData = good => {
@@ -98,7 +94,7 @@ const formControll = (form, table, closeModal) => {
     form.reset();
     closeModal();
 
-    showTotal(goods);
+    page.showTotal(goods);
   });
 };
 
