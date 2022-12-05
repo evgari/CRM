@@ -184,13 +184,17 @@
   width: 15%;
 }
 
-.add-img__icon {
+.show-img:disabled {
+  pointer-events: none;
+}
+
+.show-img__icon {
   width: 20px;
   height: 20px;
   fill: var(--accent-color);
 }
 
-.add-descr__icon {
+.edit__icon {
   width: 20px;
   height: 20px;
   stroke: var(--accent-color);

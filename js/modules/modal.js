@@ -83,6 +83,7 @@ const formControll = (form, table, closeModal) => {
 
     const newGood = Object.fromEntries(formData);
     newGood.id = document.querySelector('.vendor-code__id').textContent;
+    newGood.image = 'img/headphones.jpg';
     newGood.total = getGoodTotal(newGood);
 
     formTotal.textContent = `$0`;

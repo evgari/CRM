@@ -12,8 +12,12 @@ const showTotal = arr => {
 
 const createRow = obj => {
   const row = document.createElement('tr');
+  const imageIcon = obj.image ? '#image' : '#no-image';
+  const disabled = obj.image ? '' : 'disabled';
 
   row.dataset.id = obj.id;
+  if (obj.image) row.dataset.pic = obj.image;
+
   row.innerHTML = `
   <td>${obj.id}</td>
   <td>${obj.title}</td>
@@ -24,13 +28,13 @@ const createRow = obj => {
   <td>${getGoodTotal(obj)}</td>
   <td>
     <div class="flex flex_space_between">
-      <button class="add-img btn-reset">
-        <svg class="add-img__icon">
-          <use href="#image"></use>
+      <button class="show-img btn-reset" ${disabled}>
+        <svg class="show-img__icon">
+          <use href="${imageIcon}"></use>
         </svg>
       </button>
-      <button class="add-descr btn-reset">
-        <svg class="add-descr__icon">
+      <button class="edit btn-reset">
+        <svg class="edit__icon">
           <use href="#description"></use>
         </svg>
       </button>
@@ -61,10 +65,10 @@ const deleteControll = () => {
 
     if (target.closest('.delete')) {
       const row = target.closest('tr');
-      const targetId = row.dataset.id;
+      const targetId = Number(row.dataset.id);
 
       for (const i in goods) {
-        if (goods[i].id == targetId) {
+        if (goods[i].id === targetId) {
           goods.splice(i, 1);
         }
       }
@@ -87,10 +91,26 @@ const generateId = () => {
   return Number(arrId.join(''));
 };
 
+const showProductThumbnail = () => {
+  table.addEventListener('click', e => {
+    const target = e.target;
+
+    if (target.closest('.show-img')) {
+      const row = target.closest('tr');
+      const top = (screen.height - 600) / 2;
+      const left = (screen.width - 600) / 2;
+
+      open(`${row.dataset.pic}`, '',
+          `width=600,height=600,top=${top},left=${left}`);
+    }
+  });
+};
+
 export default {
   showTotal,
   createRow,
   generateId,
   renderGoods,
   deleteControll,
+  showProductThumbnail,
 };

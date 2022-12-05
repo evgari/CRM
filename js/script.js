@@ -9,6 +9,7 @@ const productsCart = elems.productsCart;
 const idField = elems.idField;
 const renderGoods = page.renderGoods;
 const deleteControll = page.deleteControll;
+const showProductThumbnail = page.showProductThumbnail;
 const modalControll = modal.modalControll;
 const formControll = modal.formControll;
 
@@ -18,6 +19,7 @@ const init = () => {
   renderGoods(goods);
   formControll(form, table, closeModal);
   deleteControll();
+  showProductThumbnail();
 };
 
 init();

@@ -13,6 +13,7 @@ export const goods = [
     count: 5,
     price: 100,
     total: 500,
+    image: 'img/headphones.jpg',
   },
   {
     id: 937295527,
@@ -31,6 +32,7 @@ export const goods = [
     count: 4,
     price: 400,
     total: 1600,
+    image: 'img/headphones.jpg',
   },
   {
     id: 296378448,
@@ -40,6 +42,7 @@ export const goods = [
     count: 1,
     price: 60,
     total: 60,
+    image: 'img/headphones.jpg',
   },
   {
     id: 216374586,
