@@ -16,7 +16,8 @@ const createRow = obj => {
   const disabled = obj.image ? '' : 'disabled';
 
   row.dataset.id = obj.id;
-  if (obj.image) row.dataset.pic = obj.image;
+  // if (obj.image) row.dataset.pic = obj.image;
+  obj.image ? row.dataset.pic = obj.image : '';
 
   row.innerHTML = `
   <td>${obj.id}</td>
