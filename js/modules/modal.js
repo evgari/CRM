@@ -1,11 +1,9 @@
 import {goods} from './getElems.js';
 import page from './page.js';
 
-const modalControll = (overlay, productsCart, idField) => {
+const modalControll = (overlay, productsCart) => {
   const openModal = () => {
     overlay.classList.add('open');
-
-    idField.textContent = page.generateId();
   };
 
   const closeModal = () => {

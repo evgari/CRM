@@ -1,11 +1,11 @@
-import {goods, elems} from './getElems.js';
+import {elems} from './getElems.js';
 import modal from './modal.js';
 
 const table = elems.table;
 const getGoodTotal = modal.getGoodTotal;
 
-const showTotal = arr => {
-  const total = goods.reduce((a, b) => a + b.total, 0);
+const showTotal = (arr) => {
+  const total = arr.reduce((a, b) => a + b.price * b.count, 0);
 
   document.querySelector('.header__summary span').textContent = `$${total}`;
 };
@@ -52,45 +52,33 @@ const renderGoods = arr => {
     table.append(row);
   });
 
-  showTotal();
+  console.log(arr)
+  showTotal(arr);
 };
 
-const deleteControll = () => {
+const deleteControll = (arr) => {
   table.addEventListener('click', e => {
     const target = e.target;
 
     if (target.closest('.delete')) {
       const row = target.closest('tr');
-      const targetId = Number(row.dataset.id);
+      const targetId = row.dataset.id;
 
-      for (const i in goods) {
-        if (goods[i].id === targetId) {
-          goods.splice(i, 1);
+      for (const i in arr) {
+        if (arr[i].id == targetId) {
+          arr.splice(i, 1);
         }
       }
 
       row.remove();
-      showTotal(goods);
+      showTotal(arr);
     }
   });
-};
-
-const generateId = () => {
-  const getRandNum = () => Math.floor(Math.random() * 10);
-
-  const arrId = [];
-
-  for (let i = 1; i < 10; i++) {
-    arrId.push(getRandNum());
-  }
-
-  return Number(arrId.join(''));
 };
 
 export default {
   showTotal,
   createRow,
-  generateId,
   renderGoods,
   deleteControll,
 };
