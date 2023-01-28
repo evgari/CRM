@@ -46,14 +46,18 @@ const createRow = obj => {
   return row;
 };
 
-const renderGoods = arr => {
-  arr.map(obj => {
+const renderGoods = (err, data) => {
+  if (err) {
+    console.warn(err, data);
+    return;
+  }
+
+  data.map(obj => {
     const row = createRow(obj);
     table.append(row);
   });
 
-  console.log(arr)
-  showTotal(arr);
+  showTotal(data);
 };
 
 const deleteControll = (arr) => {

@@ -85,8 +85,8 @@
 }
 
 .form__inner_elem_2 {
- display: flex;
- align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
 
 .form__inner_big {
@@ -120,6 +120,14 @@
 
 .form__input_disabled {
   background-color: #eeeeee;
+}
+
+.form__message {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  color: #d80101;
+  text-align: center;
 }
 
 .textarea {

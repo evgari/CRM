@@ -1,5 +1,7 @@
-import {goods} from './getElems.js';
-import page from './page.js';
+import {getData} from './getData.js';
+import {elems} from './getElems.js';
+
+const url = elems.url;
 
 const modalControll = (overlay, productsCart) => {
   const openModal = () => {
@@ -55,21 +57,13 @@ const showModalTotal = (form, field) => {
   changeTotal(count);
 };
 
-const addGoodPage = (good, table) => {
-  table.append(page.createRow(good));
-};
-
-const addGoodData = good => {
-  goods.push(good);
-};
-
 const getGoodTotal = obj => {
   const total = obj.price * obj.count;
 
   return total;
 };
 
-const formControll = (form, table, closeModal) => {
+const formControll = (form, renderGoods, closeModal) => {
   const formTotal = form.querySelector('.form__summary span');
 
   checkDisconst(form);
@@ -77,22 +71,41 @@ const formControll = (form, table, closeModal) => {
 
   form.addEventListener('submit', e => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
+    console.log('formData: ', formData);
 
     const newGood = Object.fromEntries(formData);
-    newGood.id = document.querySelector('.vendor-code__id').textContent;
-    newGood.total = getGoodTotal(newGood);
+    console.log('newGood: ', newGood);
 
-    formTotal.textContent = `$0`;
-    form.promo.classList.add('form__input_disabled');
-    form.promo.disabled = true;
+    const discont = form.discont.checked ? form.promo.value :
+      '';
 
-    addGoodPage(newGood, table);
-    addGoodData(newGood);
-    form.reset();
-    closeModal();
-
-    page.showTotal(goods);
+    getData(url, {
+      method: 'POST',
+      callback: renderGoods,
+      body: {
+        title: form.title.value,
+        description: form.description.value,
+        category: form.category.value,
+        units: form.units.value,
+        count: form.count.value,
+        discount: discont,
+        price: form.price.value,
+      },
+      callback(err, data) {
+        const message = document.querySelector('.message');
+        if (err) {
+          console.warn(err, data);
+          message.textContent = 'Что-то пошло не так...';
+        }
+        message.textContent = `Заявка успешно отправлена, номер заявки ${data.id}`;
+        closeModal();
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      }, 
+    });
   });
 };
 

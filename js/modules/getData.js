@@ -1,4 +1,9 @@
-export const getData = async (url, method, body, headers) => {
+export const getData = async (url, {
+  method = 'get',
+  callback,
+  body,
+  headers,
+}) => {
   try {
     const options = {
       method,
@@ -12,14 +17,17 @@ export const getData = async (url, method, body, headers) => {
 
     if (response.ok) {
       const data = await response.json();
+      if (callback) callback(null, data);
       return data;
     }
 
     throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
   } catch (err) {
-    console.error(err);
+    callback(err);
   }
 };
+
+
 
 
 
