@@ -72,18 +72,11 @@ const formControll = (form, renderGoods, closeModal) => {
   form.addEventListener('submit', e => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    console.log('formData: ', formData);
-
-    const newGood = Object.fromEntries(formData);
-    console.log('newGood: ', newGood);
-
     const discont = form.discont.checked ? form.promo.value :
       '';
 
     getData(url, {
       method: 'POST',
-      callback: renderGoods,
       body: {
         title: form.title.value,
         description: form.description.value,
@@ -101,6 +94,7 @@ const formControll = (form, renderGoods, closeModal) => {
         }
         message.textContent = `Заявка успешно отправлена, номер заявки ${data.id}`;
         closeModal();
+        renderGoods(null, data);
       },
       headers: {
         'Content-Type': 'application/json',
