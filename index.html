@@ -148,41 +148,37 @@
       </button>
       <div class="modal__header">
         <h2 class="modal__title">Добавить товар</h2>
-        <div class="vendor-code">
-          id:
-          <span class="vendor-code__id">201910241</span>
-        </div>
       </div>
-      <form class="form" action="https://jsonplaceholder.typicode.com/posts" method="POST">
+      <form class="form" method="POST">
         <fieldset class="form__wrapper">
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Наименование</div>  
-              <input class="form__input" type="text" name="title">
+              <input class="form__input" type="text" name="title" required>
             </label>
           </fieldset>
           <fieldset class="form__inner form__inner_big">
             <label class="form__label">
               <div class="form__label-text">Описание</div>              
-              <textarea class="form__input textarea" name="description"></textarea>
+              <textarea class="form__input textarea" name="description" required></textarea>
             </label>
           </fieldset>
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Категория</div>              
-              <input class="form__input" type="text" name="category">
+              <input class="form__input" type="text" name="category" required>
             </label>
           </fieldset>
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Единицы измерения</div>
-              <input class="form__input" type="text" name="units">
+              <input class="form__input" type="text" name="units" required>
             </label>
           </fieldset>
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Количество</div>              
-              <input class="form__input" type="number" name="count">
+              <input class="form__input" type="number" name="count" required>
             </label>
           </fieldset>
           <fieldset class="form__inner">
@@ -199,10 +195,10 @@
           <fieldset class="form__inner">
             <label class="form__label">
               <div class="form__label-text">Цена</div>
-              <input class="form__input" type="number" name="price">
+              <input class="form__input" type="number" name="price" required>
             </label>
           </fieldset>
-          <div class="message form__message"></div>
+          <p class="message form__message"></p>
           <button class="btn-fill btn-reset form__btn-image" type="button">Добавить изображение</button>
           <div class="form__image"></div>
         </fieldset>

@@ -62,13 +62,6 @@
   color: var(--accent-color);
 }
 
-.vendor-code {
-  font-size: 10px;
-  font-weight: 600;
-  line-height: 12px;
-  color: #c5c5c5;
-}
-
 .form__wrapper {
   border-radius: 8px;
   display: grid;

@@ -1,27 +1,22 @@
-import {elems} from './modules/getElems.js';
-import page from './modules/page.js';
-import modal from './modules/modal.js';
-import {getData} from './modules/getData.js';
+import {fetchRequest, renderGoods} from './modules/renderGoods.js';
+import {modalControl} from './modules/modalControl.js';
+import {formControl} from './modules/formControl.js';
 
-const url = elems.url;
-const form = elems.form;
-const overlay = elems.overlay;
-const productsCart = elems.productsCart;
-const idField = elems.idField;
-const renderGoods = page.renderGoods;
-const deleteControll = page.deleteControll;
-const modalControll = modal.modalControll;
-const formControll = modal.formControll;
-
-const goods = await getData(url, 'get');
-console.log('goods: ', goods);
+import {
+  url,
+  overlay,
+  productsCart,
+  form,
+} from './modules/const.js';
 
 const init = () => {
-  const {closeModal} = modalControll(overlay, productsCart, idField);
+  const {closeModal} = modalControl(overlay, productsCart);
+  formControl(form, closeModal);
 
-  renderGoods(null, goods);
-  formControll(form, renderGoods, closeModal);
-  deleteControll();
+  fetchRequest(url, {
+    method: 'get',
+    callback: renderGoods,
+  });
 };
 
 init();
