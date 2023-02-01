@@ -1,4 +1,4 @@
-import {createRow, fetchRequest} from './renderGoods.js';
+import {fetchRequest} from './renderGoods.js';
 
 import {
   url,
@@ -57,7 +57,6 @@ export const formControl = (form, closeModal) => {
           modalMessage.textContent = 'Что-то пошло не так...';
         }
 
-        tableBody.append(createRow(data));
         modalTotal.textContent = `$0`;
         form.promo.classList.add('form__input_disabled');
         form.promo.disabled = true;

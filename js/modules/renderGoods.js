@@ -25,6 +25,10 @@ export const fetchRequest = async (url, {
 
     if (response.ok) {
       const data = await response.json();
+      if (body) {
+        tableBody.append(createRow(data));
+      }
+      
       if (callback) callback(null, data);
       return;
     }
