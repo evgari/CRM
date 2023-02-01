@@ -38,12 +38,13 @@ export const formControl = (form, closeModal) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-  
+
     fetchRequest(url, {
       method: 'post',
       body: {
         title: form.title.value,
-        description: form.description.value,
+        description: form.description.value ? 
+          form.description.value : 'нет описания',
         category: form.category.value,
         units: form.units.value,
         count: form.count.value,
@@ -56,10 +57,11 @@ export const formControl = (form, closeModal) => {
           modalMessage.textContent = 'Что-то пошло не так...';
         }
 
+        tableBody.append(createRow(data));
         modalTotal.textContent = `$0`;
         form.promo.classList.add('form__input_disabled');
         form.promo.disabled = true;
-        tableBody.append(createRow(data));
+        form.reset();
         closeModal();
       },
       headers: {
