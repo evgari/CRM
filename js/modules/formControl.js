@@ -2,7 +2,6 @@ import {fetchRequest} from './renderGoods.js';
 
 import {
   url,
-  tableBody,
   modalMessage,
   modalTotal,
 } from './const.js';
