@@ -1,21 +1,17 @@
 import {fetchRequest, renderGoods} from './modules/renderGoods.js';
-import {modalControl} from './modules/modalControl.js';
-import {formControl} from './modules/formControl.js';
+import {productsCart, url} from './modules/const.js';
+import {addNewGood} from './modules/goodsControl.js';
+import showModal from './modules/modal.js';
 
-import {
-  url,
-  overlay,
-  productsCart,
-  form,
-} from './modules/const.js';
-
-const init = () => {
-  const {closeModal} = modalControl(overlay, productsCart);
-  formControl(form, closeModal);
-
-  fetchRequest(url, {
+const init = async () => {
+  await fetchRequest(url, {
     method: 'get',
     callback: renderGoods,
+  });
+
+  productsCart.addEventListener('click', async () => {
+    const {form, overlay} = await showModal(null, null);
+    addNewGood(form, overlay);
   });
 };
 

@@ -156,6 +156,10 @@
   border-bottom: 1px solid #d9d5ec;
 }
 
+.table__body td:nth-child(5) {
+  text-align: center;
+}
+
 .column-1 {
   width: 5%;
 }
@@ -188,22 +192,18 @@
   width: 15%;
 }
 
-.add-img__icon {
-  width: 20px;
-  height: 20px;
+.controls-button_img,
+.controls-button_delete {
   fill: var(--accent-color);
 }
 
-.add-descr__icon {
-  width: 20px;
-  height: 20px;
+.controls-button_edit {
   stroke: var(--accent-color);
 }
 
-.delete__icon {
+.controls-button svg {
   width: 20px;
   height: 20px;
-  fill: var(--accent-color);
 }
 
 .table__footer {

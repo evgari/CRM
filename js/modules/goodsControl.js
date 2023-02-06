@@ -1,13 +1,8 @@
-import {fetchRequest} from './renderGoods.js';
+import {fetchRequest, createRow} from './renderGoods.js';
+import {url, tableBody} from './const.js';
 
-import {
-  url,
-  modalMessage,
-  modalTotal,
-} from './const.js';
-
-const checkDisconst = (form) => {
-  form.discont.addEventListener('change', () => {
+export const checkDiscount = (form) => {
+  form.discount.addEventListener('change', () => {
     const promoInput = form.promo;
 
     promoInput.classList.toggle('form__input_disabled');
@@ -21,8 +16,9 @@ const checkDisconst = (form) => {
   });
 };
 
-const displayModalTotal = (form, modalTotal) => {
+export const displayModalTotal = (form) => {
   const prop = [form.price, form.count];
+  const modalTotal = document.querySelector('.form__summary>span');
 
   prop.forEach(el => {
     el.addEventListener('change', () => {
@@ -31,9 +27,9 @@ const displayModalTotal = (form, modalTotal) => {
   });
 };
 
-export const formControl = (form, closeModal) => {
-  checkDisconst(form);
-  displayModalTotal(form, modalTotal);
+export const addNewGood = (form, overlay) => {
+  displayModalTotal(form);
+  checkDiscount(form);
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -47,20 +43,19 @@ export const formControl = (form, closeModal) => {
         category: form.category.value,
         units: form.units.value,
         count: form.count.value,
-        discount: form.discount?.value,
+        discount: form.discount.value ?
+          form.discount.value : 0,
         price: form.price.value,
       },
       callback(err, data) {
         if (err) {
           console.warn(err, data);
-          modalMessage.textContent = 'Что-то пошло не так...';
+          document.querySelector('.message').textContent = 'Что-то пошло не так...';
         }
-
-        modalTotal.textContent = `$0`;
-        form.promo.classList.add('form__input_disabled');
-        form.promo.disabled = true;
+      
         form.reset();
-        closeModal();
+        overlay.remove();
+        tableBody.append(createRow(data));
       },
       headers: {
         'Content-Type': 'application/json',

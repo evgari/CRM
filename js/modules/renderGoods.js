@@ -1,4 +1,5 @@
-import {tableBody, tableTotal} from './const.js';
+import {url, tableBody, tableTotal} from './const.js';
+import showModal from './modal.js';
 
 const displayTotal = (goods) => {
   const total = goods.reduce((acc, good) => acc + good.price * good.count, 0);
@@ -25,10 +26,7 @@ export const fetchRequest = async (url, {
 
     if (response.ok) {
       const data = await response.json();
-      if (body) {
-        tableBody.append(createRow(data));
-      }
-      
+    
       if (callback) callback(null, data);
       return;
     }
@@ -44,32 +42,32 @@ export const createRow = (good) => {
 
   row.dataset.id = good.id;
   row.innerHTML = `
-  <td>${good.id}</td>
-  <td>${good.title}</td>
-  <td>${good.category}</td>
-  <td>${good.units}</td>
-  <td>${good.count}</td>
-  <td>${good.price}</td>
-  <td>${good.price * good.count}</td>
-  <td>
-    <div class="flex flex_space_between">
-      <button class="add-img btn-reset">
-        <svg class="add-img__icon">
-          <use href="#image"></use>
-        </svg>
-      </button>
-      <button class="add-descr btn-reset">
-        <svg class="add-descr__icon">
-          <use href="#description"></use>
-        </svg>
-      </button>
-      <button class="delete btn-reset">
-        <svg class="delete__icon">
-          <use href="#delete"></use>
-        </svg>
-      </button>
-    </div>
-  </td>
+    <td>${good.id}</td>
+    <td>${good.title}</td>
+    <td>${good.category}</td>
+    <td>${good.units}</td>
+    <td>${good.count}</td>
+    <td>${good.price}</td>
+    <td>${good.price * good.count}</td>
+    <td>
+      <div class="flex flex_space_between">
+        <button class="controls-button controls-button_img btn-reset">
+          <svg>
+            <use href="#image"></use>
+          </svg>
+        </button>
+        <button class="controls-button controls-button_edit btn-reset">
+          <svg>
+            <use href="#description"></use>
+          </svg>
+        </button>
+        <button class="controls-button controls-button_delete btn-reset">
+          <svg>
+            <use href="#delete"></use>
+          </svg>
+        </button>
+      </div>
+    </td>
   `;
 
   return row;
@@ -93,4 +91,15 @@ export const renderGoods = (err, data) => {
   });
 
   tableBody.append(...goods);
+
+  tableBody.addEventListener('click', ({target}) => {
+    if (target.closest('.controls-button_edit')) {
+      fetchRequest(`${url}/${target.closest('tr').dataset.id}`, {
+        callback: showModal,
+      });
+    }
+  });
+
+  return true;
 };
+

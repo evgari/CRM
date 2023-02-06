@@ -1,21 +1,13 @@
-.modal fieldset {
-  border: none;
-}
-
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0,0,0,0.7);
-}
-
-.modal.open {
-  display: flex;
 }
 
 .modal__wrapper {
@@ -73,25 +65,16 @@
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
-.form__inner {
-  padding: 0;
-}
-
-.form__inner_elem_2 {
-  display: flex;
-  align-items: flex-end;
-}
-
-.form__inner_big {
-  grid-row: 2 span;
-}
-
 .form__label {
   display: block;
   font-size: 12px;
   font-weight: 600;
   line-height: 15px;
   color: var(--accent-color);
+}
+
+.form__label_descr {
+  grid-row: 2 span;
 }
 
 .form__label-text {
