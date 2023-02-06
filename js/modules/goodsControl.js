@@ -28,9 +28,6 @@ export const displayModalTotal = (form) => {
 };
 
 export const addNewGood = (form, overlay) => {
-  displayModalTotal(form);
-  checkDiscount(form);
-
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 

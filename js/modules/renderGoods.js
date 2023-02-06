@@ -1,4 +1,5 @@
 import {url, tableBody, tableTotal} from './const.js';
+import {addNewGood} from './goodsControl.js';
 import showModal from './modal.js';
 
 const displayTotal = (goods) => {
@@ -97,7 +98,7 @@ export const renderGoods = (err, data) => {
       fetchRequest(`${url}/${target.closest('tr').dataset.id}`, {
         callback: showModal,
       });
-    }
+    }    
   });
 
   return true;
