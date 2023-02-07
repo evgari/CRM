@@ -1,6 +1,7 @@
 import {checkDiscount, displayModalTotal} from './goodsControl.js';
 import loadStyle from './loadStyle.js';
 import {tableBody} from './const.js';
+import {previewImage} from './previewImage.js';
 
 export const showModal = async (err, data) => {
   if (err) {
@@ -45,63 +46,92 @@ export const showModal = async (err, data) => {
 
   const form = document.createElement('form');
   form.classList.add('form');
-  form.innerHTML = `
-    <form class="form">
-      <fieldset class="form__wrapper">
-        <label class="form__label">
-          <div class="form__label-text">Наименование</div>  
-          <input class="form__input" type="text" name="title" required value="${title}">
-        </label>
-      
-        <label class="form__label form__label_descr">
-          <div class="form__label-text">Описание</div>              
-          <textarea class="form__input textarea" name="description">${description}</textarea>
-        </label>
-      
-        <label class="form__label">
-          <div class="form__label-text">Категория</div>              
-          <input class="form__input" type="text" name="category" required value="${category}">
-        </label>
-      
-        <label class="form__label">
-          <div class="form__label-text">Единицы измерения</div>
-          <input class="form__input" type="text" name="units" required value="${units}">
-        </label>
-      
-        <label class="form__label">
-          <div class="form__label-text">Количество</div>              
-          <input class="form__input" type="number" name="count" required value="${count}">
-        </label>
-      
-        <div class="form__inner">
-          <label for="check" class="form__label">
-            <div class="form__label-text">Дисконт</div>  
-          </label>
-          <fieldset class="flex">
-            <input id="check" class="checkbox" type="checkbox" name="discount" ${data ? 'checked' : ''}>
-            <input class="form__input ${data ? '' : 'form__input_disabled'} form__input_small
-              js-promo" type="text" name="promo" value="${discount}" ${data ? '' : 'disabled'}>
-          </fieldset>
-        </div>
-      
-        <label class="form__label">
-          <div class="form__label-text">Цена</div>
-          <input class="form__input" type="number" name="price" required value="${price}">
-        </label>
-      
-        <p class="message form__message"></p>
-        <button class="btn-fill btn-reset form__btn-image" type="button">Добавить изображение</button>
-        <div class="form__image"></div>
+
+  const formBody = document.createElement('fieldset');
+  formBody.classList.add('form__wrapper');
+
+  formBody.innerHTML = `
+    <label class="form__label">
+      <div class="form__label-text">Наименование</div>  
+      <input class="form__input" type="text" name="title" required value="${title}">
+    </label>
+
+    <label class="form__label form__label_descr">
+      <div class="form__label-text">Описание</div>              
+      <textarea class="form__input textarea" name="description">${description}</textarea>
+    </label>
+
+    <label class="form__label">
+      <div class="form__label-text">Категория</div>              
+      <input class="form__input" type="text" name="category" required value="${category}">
+    </label>
+
+    <label class="form__label">
+      <div class="form__label-text">Единицы измерения</div>
+      <input class="form__input" type="text" name="units" required value="${units}">
+    </label>
+
+    <label class="form__label">
+      <div class="form__label-text">Количество</div>              
+      <input class="form__input" type="number" name="count" required value="${count}">
+    </label>
+
+    <div class="form__inner">
+      <label for="check" class="form__label">
+        <div class="form__label-text">Дисконт</div>  
+      </label>
+      <fieldset class="flex">
+        <input id="check" class="checkbox" type="checkbox" name="discount" ${data ? 'checked' : ''}>
+        <input class="form__input ${data ? '' : 'form__input_disabled'} form__input_small
+          js-promo" type="text" name="promo" value="${discount}" ${data ? '' : 'disabled'}>
       </fieldset>
-      <div class="form__footer flex flex_space_between">
-        <div class="form__summary summary">
-          Итоговая стоимость:
-          <span class="summary__count"> $${total}</span>
-        </div>
-        <button class="btn-fill btn-reset form__btn-add" type="submit">Добавить товар</button>
-      </div>
-    </form>
+    </div>
+
+    <label class="form__label">
+      <div class="form__label-text">Цена</div>
+      <input class="form__input" type="number" name="price" required value="${price}">
+    </label>
   `;
+
+  const message = document.createElement('p');
+  const inner = document.createElement('div');
+  const label = document.createElement('label');
+  const fileInput = document.createElement('input');
+  const formImage = document.createElement('div');
+  const formImg = document.createElement('img');
+
+  message.classList.add('message', 'form__message');
+  inner.classList.add('form__inner');
+
+  label.classList.add('form__btn-image');
+  label.setAttribute('for', 'input-img');
+  label.textContent = 'Добавить изображение';
+
+  fileInput.classList.add('file-img');
+  fileInput.id = 'input-img';
+  fileInput.type = 'file';
+  fileInput.name = 'image';
+  fileInput.setAttribute('accept', 'image/*');
+
+  formImage.classList.add('form__image');
+  formImg.classList.add('preview');
+
+  inner.append(label, fileInput);
+  formImage.append(formImg);
+  formBody.append(message, inner, formImage);
+
+  const formFooter = document.createElement('div');
+  formFooter.classList.add('form__footer', 'flex', 'flex_space_between');
+
+  formFooter.innerHTML = `
+    <div class="form__summary summary">
+      Итоговая стоимость:
+      <span class="summary__count"> $${total}</span>
+    </div>
+    <button class="btn-fill btn-reset form__btn-add" type="submit">Добавить товар</button>
+  `;
+
+  form.append(formBody, formFooter);
 
   modal.append(close, modalTitle, form);
   overlay.append(modal);
@@ -117,10 +147,12 @@ export const showModal = async (err, data) => {
 
   checkDiscount(form);
   displayModalTotal(form);
+  previewImage(fileInput, formImage, formImg, message);
 
   return {
     overlay,
-    form
+    form,
+    message
   }
 };
 

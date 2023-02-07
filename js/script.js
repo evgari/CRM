@@ -10,8 +10,8 @@ const init = async () => {
   });
 
   productsCart.addEventListener('click', async () => {
-    const {form, overlay} = await showModal(null, null);
-    addNewGood(form, overlay);
+    const {form, overlay, message} = await showModal(null, null);
+    addNewGood(form, overlay, message);
   });
 };
 

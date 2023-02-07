@@ -27,7 +27,7 @@ export const displayModalTotal = (form) => {
   });
 };
 
-export const addNewGood = (form, overlay) => {
+export const addNewGood = (form, overlay, message) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -47,7 +47,7 @@ export const addNewGood = (form, overlay) => {
       callback(err, data) {
         if (err) {
           console.warn(err, data);
-          document.querySelector('.message').textContent = 'Что-то пошло не так...';
+          message.textContent = 'Что-то пошло не так...';
         }
       
         form.reset();

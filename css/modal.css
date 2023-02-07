@@ -99,6 +99,7 @@
 }
 
 .form__message {
+  margin-top: 20px;
   font-size: 14px;
   font-weight: 700;
   line-height: 17px;
@@ -149,17 +150,36 @@
 }
 
 .form__btn-image {
-  margin-top: 18px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
   min-height: 39px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 17px;
+  text-transform: uppercase;
+  color: var(--white-color);
+  background-color: #6d5bd0;
+  cursor: pointer;
+}
+
+.file-img {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .form__image {
   display: none;
   grid-column: 2 span;
   justify-self: center;
+  padding: 30px 30px 0;
+}
+
+.form__image img {
+  object-fit: cover;
 }
 
 .form__footer {
@@ -171,6 +191,7 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 19px;
+  text-transform: uppercase;
 }
 
 @media(max-width: 776px) {
