@@ -3,6 +3,44 @@ import loadStyle from './loadStyle.js';
 import {tableBody} from './const.js';
 import {previewImage} from './previewImage.js';
 
+const formValidate = form => {
+  const title = form.title;
+  const category = form.category;
+  const description = form.description;
+  const units = form.units;
+  const count = form.count;
+  const discount = form.promo;
+  const price = form.price;
+
+  title.addEventListener('input', () => {
+    title.value = title.value.replace(/[^А-яЁё ]/g, '');
+  });
+
+  category.addEventListener('input', () => {
+    category.value = category.value.replace(/[^А-яЁё ]/g, '');
+  });
+
+  description.addEventListener('input', () => {
+    description.value = description.value.replace(/[^А-яЁё ]/g, '');
+  });
+
+  units.addEventListener('input', () => {
+    units.value = units.value.replace(/[^А-яЁё]/g, '');
+  });
+
+  count.addEventListener('input', () => {
+    count.value = count.value.replace(/\D/g, '');
+  });
+
+  discount.addEventListener('input', () => {
+    discount.value = discount.value.replace(/\D/g, '');
+  });
+
+  price.addEventListener('input', () => {
+    price.value = price.value.replace(/\D/g, '');
+  });
+};
+
 export const showModal = async (err, data) => {
   if (err) {
     console.warn(err, data);
@@ -12,7 +50,7 @@ export const showModal = async (err, data) => {
     tableBody.append(h2);
     return;
   }
-  
+
   await loadStyle('css/modal.css');
 
   const title = data ? data.title : '';
@@ -28,7 +66,7 @@ export const showModal = async (err, data) => {
   const modal = document.createElement('div');
   const close = document.createElement('button');
   const modalTitle = document.createElement('div');
-  
+
   overlay.classList.add('modal');
   modal.classList.add('modal__wrapper');
   close.classList.add('btn-close', 'btn-reset', 'flex');
@@ -58,7 +96,7 @@ export const showModal = async (err, data) => {
 
     <label class="form__label form__label_descr">
       <div class="form__label-text">Описание</div>              
-      <textarea class="form__input textarea" name="description">${description}</textarea>
+      <textarea class="form__input textarea" name="description" minlength="80" required>${description}</textarea>
     </label>
 
     <label class="form__label">
@@ -139,12 +177,13 @@ export const showModal = async (err, data) => {
   overlay.addEventListener('click', ({target}) => {
     if (target === overlay ||
       target.closest('.btn-close')) {
-        overlay.remove();
+      overlay.remove();
     }
   });
 
   document.body.append(overlay);
 
+  formValidate(form);
   checkDiscount(form);
   displayModalTotal(form);
   previewImage(fileInput, formImage, formImg, message);
@@ -152,8 +191,8 @@ export const showModal = async (err, data) => {
   return {
     overlay,
     form,
-    message
-  }
+    message,
+  };
 };
 
 export default showModal;

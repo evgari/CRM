@@ -56,7 +56,7 @@ export const addNewGood = (form, overlay, message) => {
       },
       headers: {
         'Content-Type': 'application/json',
-      }, 
+      },
     });
   });
 };

@@ -12,7 +12,7 @@ const loadStyle = (url) => {
     link.addEventListener('load', () => {
       resolve();
     });
-    
+
     document.head.append(link);
   });
 
